@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { API } from './lib/constants';
 
 function App() {
-  const [city, setCity] = useState<string>('Atlanta');
-  const [weather, setWeather] = useState<any>({});
+  const [city, setCity] = useState<string>('33.75,-84.39');
+  const [weather, setWeather] = useState<Weather>();
+
+  console.log(weather);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -19,7 +21,11 @@ function App() {
 
   return (
     <div>
-      <h2></h2>
+      {weather && (
+        <h2>
+          {weather.location.name}, {weather.location.region}
+        </h2>
+      )}
     </div>
   );
 }
