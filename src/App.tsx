@@ -1,18 +1,29 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { API } from './lib/constants';
 import { convertToCustomDate } from './lib/helpers';
 
 function App() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [city, setCity] = useState<string>('Atlanta');
+  const [cities, setCities] = useState<any[]>();
   const [cityIsSelected, toggleCityIsSelected] = useState<boolean>(false);
   const [weather, setWeather] = useState<Weather>();
   const [date, setDate] = useState<CustomDate | undefined>();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCity(e.target.value);
     toggleCityIsSelected(true);
+  };
+
+  const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { data } = await axios.get(
+      `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${inputRef.current?.value}`,
+    );
+    setCities(data);
   };
 
   useEffect(() => {
@@ -24,7 +35,7 @@ function App() {
 
     const fetchWeather = async () => {
       const { data } = await axios.get(
-        `${API.BASE_URL}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
+        `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
       );
       setWeather(data);
       setDate(convertToCustomDate(data.location.localtime));
@@ -44,7 +55,7 @@ function App() {
       {weather && (
         <>
           <h2>
-            {weather.location.name}, {weather.location.region}
+            {weather.location.name}, {weather.location.region}, {weather.location.country}
           </h2>
           <h3>{weather.current.temp_f}°F</h3>
           {/* replace with custom icons */}
@@ -55,11 +66,19 @@ function App() {
           <h3>{weather.current.condition.text}</h3>
         </>
       )}
+      <form onSubmit={handleSearchSubmit}>
+        <input ref={inputRef} />
+      </form>
       <form>
-        <select onChange={handleChange}>
-          <option value='Atlanta'>Atlanta</option>
-          <option value='New York'>New York</option>
-          <option value='Los Angeles'>Los Angeles</option>
+        <select onChange={handleSelectChange}>
+          {cities?.map(c => (
+            <option
+              key={c.id}
+              value={`${c.lat},${c.lon}`}
+            >
+              {c.name}, {c.region}, {c.country}
+            </option>
+          ))}
         </select>
       </form>
     </div>

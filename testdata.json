@@ -1,0 +1,41 @@
+{
+  "current": {
+    "cloud": 50,
+    "condition": {
+      "code": 1003,
+      "icon": "//cdn.weatherapi.com/weather/64x64/day/116.png",
+      "text": "Partly cloudy"
+    },
+    "feelslike_c": 26.9,
+    "feelslike_f": 80.4,
+    "gust_kph": 19.4,
+    "gust_mph": 12.1,
+    "humidity": 46,
+    "is_day": 1,
+    "last_updated": "2023-06-08 14:45",
+    "last_updated_epoch": 1686249900,
+    "precip_in": 0,
+    "precip_mm": 0,
+    "pressure_in": 29.79,
+    "pressure_mb": 1009,
+    "temp_c": 27.8,
+    "temp_f": 82,
+    "uv": 8,
+    "vis_km": 16,
+    "vis_miles": 9,
+    "wind_degree": 290,
+    "wind_dir": "WNW",
+    "wind_kph": 19.1,
+    "wind_mph": 11.9
+  },
+  "location": {
+    "country": "United States of America",
+    "lat": 33.75,
+    "localtime": "2023-06-08 14:54",
+    "localtime_epoch": 1686250449,
+    "lon": -84.39,
+    "name": "Atlanta",
+    "region": "Georgia",
+    "tz_id": "America/New_York"
+  }
+}
