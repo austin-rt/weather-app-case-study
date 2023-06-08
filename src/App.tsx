@@ -5,6 +5,7 @@ import { API } from './lib/constants';
 import { convertToCustomDate } from './lib/helpers';
 
 function App() {
+  // ========== extract logic to useGeoLocation and useFetchWeather hooks ========== //
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [city, setCity] = useState<string>('Atlanta');
