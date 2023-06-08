@@ -9,6 +9,7 @@ function App() {
   const [weather, setWeather] = useState<Weather>();
   const [date, setDate] = useState<CustomDate | undefined>();
 
+  // ========== EXTRACT TO CUSTOM HOOK ========== //
   useEffect(() => {
     const fetchWeather = async () => {
       const { data } = await axios.get(
@@ -35,6 +36,11 @@ function App() {
             {weather.location.name}, {weather.location.region}
           </h2>
           <h3>{weather.current.temp_f}°F</h3>
+          {/* replace with custom icons? */}
+          <img
+            src={weather.current.condition.icon}
+            alt={weather.current.condition.text}
+          />
           <h3>{weather.current.condition.text}</h3>
         </>
       )}
