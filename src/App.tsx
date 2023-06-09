@@ -3,12 +3,15 @@ import { useEffect, useState, useRef } from 'react';
 
 import { API } from './lib/constants';
 import { convertToCustomDate } from './lib/helpers';
+import useGeolocation from './hooks/useGeolocation';
 
 function App() {
+  const coordinates = useGeolocation();
+
   // ========== extract logic to useGeoLocation and useFetchWeather hooks ========== //
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [city, setCity] = useState<string>('Atlanta');
+  const [city, setCity] = useState<string>(`${coordinates}`);
   const [cities, setCities] = useState<any[]>();
   const [cityIsSelected, toggleCityIsSelected] = useState<boolean>(false);
   const [weather, setWeather] = useState<Weather>();
@@ -19,30 +22,39 @@ function App() {
     toggleCityIsSelected(true);
   };
 
+  // should be on input change with debounce so no submit is needed
   const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { data } = await axios.get(
-      `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${inputRef.current?.value}`,
-    );
-    setCities(data);
+    try {
+      const { data } = await axios.get(
+        `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${inputRef.current?.value}`,
+      );
+      setCities(data);
+    } catch (err) {
+      // find API error codes and handle accordingly
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-    if (navigator.geolocation && !cityIsSelected) {
-      navigator.geolocation.getCurrentPosition(position => {
-        setCity(`${position.coords.latitude},${position.coords.longitude}`);
-      });
+    if (coordinates && !cityIsSelected) {
+      setCity(`${coordinates}`);
     }
 
     const fetchWeather = async () => {
-      const { data } = await axios.get(
-        `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
-      );
-      setWeather(data);
-      setDate(convertToCustomDate(data.location.localtime));
+      try {
+        const { data } = await axios.get(
+          `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
+        );
+        setWeather(data);
+        setDate(convertToCustomDate(data.location.localtime));
+      } catch (err) {
+        // find API error codes and handle accordingly
+        console.log(err);
+      }
     };
     fetchWeather();
-  }, [city, cityIsSelected]);
+  }, [coordinates, city, cityIsSelected]);
 
   return (
     <div>
