@@ -4,21 +4,24 @@ import { useEffect, useState, useRef } from 'react';
 import { API } from './lib/constants';
 import { convertToCustomDate } from './lib/helpers';
 import useGeolocation from './hooks/useGeolocation';
+import { useAppDispatch } from './store/store';
+import { setCityAsync } from './store/features/citySlice';
 
 function App() {
-  const coordinates = useGeolocation();
+  const city = useGeolocation();
+  const dispatch = useAppDispatch();
 
-  // ========== extract logic to useGeoLocation and useFetchWeather hooks ========== //
+  // ========== extract logic to useFetchWeather hook ========== //
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [city, setCity] = useState<string>(`${coordinates}`);
+  // const [city, setCity] = useState<string>(`${coordinates}`);
   const [cities, setCities] = useState<any[]>();
   const [cityIsSelected, toggleCityIsSelected] = useState<boolean>(false);
   const [weather, setWeather] = useState<Weather>();
   const [date, setDate] = useState<CustomDate | undefined>();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCity(e.target.value);
+    dispatch(setCityAsync(e.target.value));
     toggleCityIsSelected(true);
   };
 
@@ -37,8 +40,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (coordinates && !cityIsSelected) {
-      setCity(`${coordinates}`);
+    if (city && !cityIsSelected) {
+      dispatch(setCityAsync(city));
     }
 
     const fetchWeather = async () => {
@@ -54,7 +57,7 @@ function App() {
       }
     };
     fetchWeather();
-  }, [coordinates, city, cityIsSelected]);
+  }, [city, cityIsSelected]);
 
   return (
     <div>
