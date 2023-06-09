@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useGeolocation() {
+const useGeolocation = () => {
   const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(
     null,
   );
@@ -15,6 +15,6 @@ function useGeolocation() {
   }, []);
 
   return coordinates ? `${coordinates.latitude},${coordinates.longitude}` : 'Atlanta';
-}
+};
 
 export default useGeolocation;
