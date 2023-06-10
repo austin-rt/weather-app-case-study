@@ -1,28 +1,27 @@
 import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { API } from './lib/constants';
-import { convertToCustomDate } from './lib/helpers';
-import useGeolocation from './hooks/useGeolocation';
-import { useAppDispatch } from './store/store';
-import { setCityAsync } from './store/features/citySlice';
+import { generateCustomDate } from './lib/helpers';
+import { useAppDispatch, useAppSelector } from './store/store';
+import { setCity } from './store/features/CitySlice';
+import useFetchWeather from './hooks/useFetchWeather';
 
 function App() {
-  const city = useGeolocation();
   const dispatch = useAppDispatch();
+  const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
 
-  // ========== extract logic to useFetchWeather hook ========== //
+  useFetchWeather();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // const [city, setCity] = useState<string>(`${coordinates}`);
   const [cities, setCities] = useState<any[]>();
-  const [cityIsSelected, toggleCityIsSelected] = useState<boolean>(false);
-  const [weather, setWeather] = useState<Weather>();
-  const [date, setDate] = useState<CustomDate | undefined>();
+  // const [cityIsSelected, toggleCityIsSelected] = useState<boolean>(false);
+  const [date, setDate] = useState<CustomDate>(generateCustomDate());
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setCityAsync(e.target.value));
-    toggleCityIsSelected(true);
+    dispatch(setCity(e.target.value));
+    // toggleCityIsSelected(true);
   };
 
   // should be on input change with debounce so no submit is needed
@@ -38,26 +37,6 @@ function App() {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    if (city && !cityIsSelected) {
-      dispatch(setCityAsync(city));
-    }
-
-    const fetchWeather = async () => {
-      try {
-        const { data } = await axios.get(
-          `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
-        );
-        setWeather(data);
-        setDate(convertToCustomDate(data.location.localtime));
-      } catch (err) {
-        // find API error codes and handle accordingly
-        console.log(err);
-      }
-    };
-    fetchWeather();
-  }, [city, cityIsSelected]);
 
   return (
     <div>
