@@ -1,16 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AppThunk } from '../store';
 
-interface CityState {
+export type CityState = {
   city: string;
-}
+};
 
 const initialState: CityState = {
-  city: 'Atlanta',
+  city: '',
 };
 
 export const CitySlice = createSlice({
-  name: 'city',
+  name: 'CitySlice',
   initialState,
   reducers: {
     setCity: (state, action: PayloadAction<string>) => {
@@ -20,11 +19,5 @@ export const CitySlice = createSlice({
 });
 
 export const { setCity } = CitySlice.actions;
-
-export const setCityAsync =
-  (city: string): AppThunk =>
-  async dispatch => {
-    dispatch(setCity(city));
-  };
 
 export default CitySlice.reducer;
