@@ -1,11 +1,16 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { CitySlice } from './features/citySlice';
+import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
+import CitySlice from './features/CitySlice';
+import WeatherSlice from './features/WeatherSlice';
+
+const reducers = combineReducers({
+  CitySlice,
+  WeatherSlice,
+});
+
 export const store = configureStore({
-  reducer: {
-    city: CitySlice.reducer,
-  },
+  reducer: reducers,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
