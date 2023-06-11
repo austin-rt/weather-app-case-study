@@ -227,6 +227,35 @@ type WeatherCondition = {
     | '395';
 };
 
+type AnimationString =
+  | 'CloudyNight'
+  | 'Foggy'
+  | 'Mist'
+  | 'Night'
+  | 'PartlyCloudy'
+  | 'PartlyShower'
+  | 'RainyNight'
+  | 'Snow'
+  | 'SnowNight'
+  | 'Storm'
+  | 'StormShowers'
+  | 'Sunny'
+  | 'Thunder'
+  | 'Windy'
+  | null;
+
+type WeatherConditionWithAnimationString = WeatherCondition & {
+  animationString: AnimationString;
+};
+
+type CurrentWeatherWithAnimationString = CurrentWeather & {
+  condition: WeatherConditionWithAnimationString;
+};
+
+type WeatherWithAnimationString = Weather & {
+  current: CurrentWeatherWithAnimationString;
+};
+
 type UserLocation = {
   name: string;
   region: string;
@@ -243,7 +272,7 @@ type CustomDate = {
   hour: string;
 };
 
-interface IpData {
+type IpData = {
   status: string;
   country: string;
   countryCode: string;
@@ -258,4 +287,4 @@ interface IpData {
   org: string;
   as: string;
   query: string;
-}
+};
