@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export type WeatherState = {
-  weather: Weather | null;
+  weather: WeatherWithAnimationString | null;
 };
 
 const initialState: WeatherState = {
@@ -12,7 +12,7 @@ export const WeatherSlice = createSlice({
   name: 'WeatherSlice',
   initialState,
   reducers: {
-    setWeather: (state, action: PayloadAction<Weather>) => {
+    setWeather: (state, action: PayloadAction<WeatherWithAnimationString>) => {
       state.weather = action.payload;
     },
   },
