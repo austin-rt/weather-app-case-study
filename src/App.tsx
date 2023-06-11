@@ -7,11 +7,12 @@ import { useAppDispatch, useAppSelector } from './store/store';
 import { setCity } from './store/features/CitySlice';
 import useFetchWeather from './hooks/useFetchWeather';
 
+import LottieWrapper from './components/LottieWrapper';
+
 function App() {
   const dispatch = useAppDispatch();
-  const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
-
   useFetchWeather();
+  const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -53,11 +54,7 @@ function App() {
             {weather.location.name}, {weather.location.region}, {weather.location.country}
           </h2>
           <h3>{weather.current.temp_f}°F</h3>
-          {/* replace with custom icons */}
-          <img
-            src={weather.current.condition.icon}
-            alt={weather.current.condition.text}
-          />
+          <LottieWrapper />
           <h3>{weather.current.condition.text}</h3>
         </>
       )}
