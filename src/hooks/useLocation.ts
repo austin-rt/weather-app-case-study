@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../store/store';
 import { setCity } from '../store/features/CitySlice';
 
@@ -19,5 +19,5 @@ export default function useLocation() {
       };
       fetchIpLocation();
     }
-  }, []);
+  }, [dispatch]);
 }
