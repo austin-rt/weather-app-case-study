@@ -40,39 +40,41 @@ function App() {
   };
 
   return (
-    <div>
-      {date && (
-        <>
-          <h3>
-            {date.day}, {date.hour}
-          </h3>
-        </>
-      )}
-      {weather && (
-        <>
-          <h2>
-            {weather.location.name}, {weather.location.region}, {weather.location.country}
-          </h2>
-          <h3>{weather.current.temp_f}°F</h3>
-          <LottieWrapper />
-          <h3>{weather.current.condition.text}</h3>
-        </>
-      )}
-      <form onSubmit={handleSearchSubmit}>
-        <input ref={inputRef} />
-      </form>
-      <form>
-        <select onChange={handleSelectChange}>
-          {cities?.map(c => (
-            <option
-              key={c.id}
-              value={`${c.lat},${c.lon}`}
-            >
-              {c.name}, {c.region}, {c.country}
-            </option>
-          ))}
-        </select>
-      </form>
+    <div className='w-full h-[100vh] flex flex-col items-center p-10 border-2 border-red-500'>
+      <div className='bg-slate-400 w-5/6 flex flex-col justify-center items-center rounded-lg gap-4 p-8'>
+        {date && (
+          <>
+            <h3>
+              {date.day}, {date.hour}
+            </h3>
+          </>
+        )}
+        {weather && (
+          <>
+            <h2>
+              {weather.location.name}, {weather.location.region}, {weather.location.country}
+            </h2>
+            <h3>{weather.current.temp_f}°F</h3>
+            <LottieWrapper />
+            <h3>{weather.current.condition.text}</h3>
+          </>
+        )}
+        <form onSubmit={handleSearchSubmit}>
+          <input ref={inputRef} />
+        </form>
+        <form>
+          <select onChange={handleSelectChange}>
+            {cities?.map(c => (
+              <option
+                key={c.id}
+                value={`${c.lat},${c.lon}`}
+              >
+                {c.name}, {c.region}, {c.country}
+              </option>
+            ))}
+          </select>
+        </form>
+      </div>
     </div>
   );
 }
