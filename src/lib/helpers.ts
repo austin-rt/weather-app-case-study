@@ -1,3 +1,6 @@
+import { AnimationString } from '../../types/animations';
+import { ANIMATIONS } from './constants';
+
 export const generateCustomDate = (): CustomDate => {
   const dateObj = new Date();
   return {
@@ -6,7 +9,6 @@ export const generateCustomDate = (): CustomDate => {
   };
 };
 
-// move to apiHelpers file?
 export const addAnimationString = (data: Weather): WeatherWithAnimationString => {
   const code: WeatherConditionCode = data.current.condition.code as WeatherConditionCode;
   const isDay = data.current.is_day;
