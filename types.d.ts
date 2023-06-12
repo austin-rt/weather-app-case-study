@@ -134,23 +134,27 @@ type WeatherCondition = {
   icon: string;
 };
 
-type AnimationString =
-  | 'CloudyNight'
-  | 'Foggy'
-  | 'Mist'
-  | 'Night'
-  | 'PartlyCloudy'
-  | 'PartlyShower'
-  | 'RainyNight'
-  | 'Snow'
-  | 'SnowSun'
-  | 'SnowNight'
-  | 'Storm'
-  | 'StormShowers'
-  | 'Sunny'
-  | 'Thunder'
-  | 'Windy'
-  | 'Loading';
+enum ANIMATIONS {
+  CLOUDY_NIGHT = 'cloudyNight',
+  FOG = 'fog',
+  MIST = 'mist',
+  CLEAR_NIGHT = 'clearNight',
+  PARTLY_CLOUDY = 'partlyCloudy',
+  PARTLY_SHOWER = 'partlyShower',
+  RAIN = 'rain',
+  RAINY_NIGHT = 'rainyNight',
+  SNOW = 'snow',
+  SNOWY_SUN = 'snowySun',
+  SNOWY_NIGHT = 'snowyNight',
+  STORM = 'storm',
+  STORM_SHOWERS = 'stormShowers',
+  SUNNY = 'sunny',
+  THUNDER = 'thunder',
+  WINDY = 'windy',
+  LOADING = 'loading',
+}
+
+type AnimationString = ANIMATIONS;
 
 type WeatherConditionWithAnimationString = WeatherCondition & {
   animationString: AnimationString;
