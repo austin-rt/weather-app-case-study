@@ -170,7 +170,8 @@ type SearchQueryLocation = {
 
 type CustomDate = {
   day: string;
-  hour: string;
+  hour: number;
+  localtime: string;
 };
 
 type IpData = {
