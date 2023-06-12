@@ -8,18 +8,18 @@ import { API } from '../lib/constants';
 
 export default function useFetchWeather() {
   useLocation();
-  const city = useAppSelector(({ CitySlice }) => CitySlice.city);
+  const coordinates = useAppSelector(({ CitySlice }) => CitySlice.city?.coordinates);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchWeather = async () => {
-      if (city) {
+      if (coordinates) {
         const { data }: { data: Weather } = await axios.get(
-          `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`,
+          `${API.BASE_URL}/${API.CURRENT}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${coordinates}`,
         );
         dispatch(setWeather(addAnimationString(data)));
       }
     };
     fetchWeather();
-  }, [city, dispatch]);
+  }, [coordinates, dispatch]);
 }

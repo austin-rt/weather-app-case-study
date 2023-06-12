@@ -10,12 +10,12 @@ export default function useLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const { latitude, longitude } = position.coords;
-        dispatch(setCity(`${latitude},${longitude}`));
+        dispatch(setCity({ lat: latitude, lon: longitude }));
       });
     } else {
       const fetchIpLocation = async () => {
         const { data }: { data: IpData } = await axios.get('http://ip-api.com/json/?fields=61439');
-        dispatch(setCity(`${data.lat},${data.lon}`));
+        dispatch(setCity({ lat: data.lat, lon: data.lon }));
       };
       fetchIpLocation();
     }

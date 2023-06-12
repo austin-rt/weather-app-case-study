@@ -1,20 +1,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-// this should be refactored to use the city object from the api and extract the lat and lon
-export type CityState = {
-  city: string;
-};
-
-const initialState: CityState = {
-  city: '',
-};
+const initialState: Partial<{ city: UserLocationWithCoordinatesString }> = {};
 
 export const CitySlice = createSlice({
   name: 'CitySlice',
   initialState,
   reducers: {
-    setCity: (state, action: PayloadAction<string>) => {
-      state.city = action.payload;
+    /**
+     * @param action.payload - at minimum, this should contain the latitude and longitude as {lat: number, lon: number} and at most it is of type UserLocationWithCoordinatesString
+     *
+     */
+    setCity: (state, action: PayloadAction<Partial<UserLocation>>) => {
+      if (action.payload) {
+        const coordinates = `${action.payload.lat},${action.payload.lon}`;
+        state.city = {
+          ...action.payload,
+          coordinates,
+        };
+      }
     },
   },
 });
