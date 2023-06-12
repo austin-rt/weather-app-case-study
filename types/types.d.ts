@@ -159,6 +159,15 @@ type UserLocation = {
   localtime: string;
 };
 
+type SearchQueryLocation = {
+  id: number;
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+};
+
 type CustomDate = {
   day: string;
   hour: string;
