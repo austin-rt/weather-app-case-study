@@ -1,12 +1,17 @@
-import { useEffect } from 'react';
-import useTimeout from './useTimeout';
+import { useEffect, useState } from 'react';
 
-export default function useDebounce(callback: Function, delay: number, dependencies: any[]) {
-  const { reset, clear } = useTimeout(callback, delay);
-  useEffect(reset, [...dependencies, reset]);
+export default function useDebounce(dependancy: any, delay: number) {
+  const [debouncedDependancy, setDebouncedDependancy] = useState<any>(dependancy);
 
-  // clear definition is wrapped in a useCallback
-  // in /src/hooks/useTimeout.ts so this is a safe disable
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(clear, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedDependancy(dependancy);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dependancy, delay]);
+
+  return debouncedDependancy;
 }
