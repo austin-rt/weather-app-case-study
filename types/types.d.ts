@@ -149,6 +149,7 @@ type WeatherWithAnimationString = Weather & {
 };
 
 type UserLocation = {
+  id: number;
   name: string;
   region: string;
   country: string;
@@ -159,14 +160,21 @@ type UserLocation = {
   localtime: string;
 };
 
-type SearchQueryLocation = {
+interface UserLocationWithCoordinatesString extends Partial<UserLocation> {
+  coordinates: string;
+}
+
+interface SearchQueryLocation extends Partial<UserLocation> {
   id: number;
   name: string;
   region: string;
   country: string;
   lat: number;
   lon: number;
-};
+  tz_id: string;
+  localtime_epoch: number;
+  localtime: string;
+}
 
 type CustomDate = {
   day: string;
