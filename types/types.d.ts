@@ -1,3 +1,5 @@
+// animation types are in /types/animations.ts due to ANIMATION enum being used as AnimationType definition
+
 type Weather = {
   location: UserLocation;
   current: CurrentWeather;
@@ -133,28 +135,6 @@ type WeatherCondition = {
     | 'Moderate or heavy snow with thunder';
   icon: string;
 };
-
-enum ANIMATIONS {
-  CLOUDY_NIGHT = 'cloudyNight',
-  FOG = 'fog',
-  MIST = 'mist',
-  CLEAR_NIGHT = 'clearNight',
-  PARTLY_CLOUDY = 'partlyCloudy',
-  PARTLY_SHOWER = 'partlyShower',
-  RAIN = 'rain',
-  RAINY_NIGHT = 'rainyNight',
-  SNOW = 'snow',
-  SNOWY_SUN = 'snowySun',
-  SNOWY_NIGHT = 'snowyNight',
-  STORM = 'storm',
-  STORM_SHOWERS = 'stormShowers',
-  SUNNY = 'sunny',
-  THUNDER = 'thunder',
-  WINDY = 'windy',
-  LOADING = 'loading',
-}
-
-type AnimationString = ANIMATIONS;
 
 type WeatherConditionWithAnimationString = WeatherCondition & {
   animationString: AnimationString;
