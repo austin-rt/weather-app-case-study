@@ -2,24 +2,24 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { API } from './lib/constants';
-import { /*useAppDispatch,*/ useAppSelector } from './store/store';
+import { useAppDispatch, useAppSelector } from './store/store';
 import useFetchWeather from './hooks/useFetchWeather';
 import CurrentWeather from './components/CurrentWeather';
-import { useDispatch } from 'react-redux';
 import { setCity } from './store/features/CitySlice';
+import useDebounce from './hooks/useDebounce';
 
 export default function App() {
-  // const dispatch = useAppDispatch();
   useFetchWeather();
   const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCity, setSelectedCity] = useState<SearchQueryLocation>();
   const [cities, setCities] = useState<SearchQueryLocation[]>();
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') return;
     setSearchQuery(e.target.value);
   };
 
@@ -27,15 +27,15 @@ export default function App() {
     const handleSearch = async () => {
       try {
         const { data } = await axios.get(
-          `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${searchQuery}`,
+          `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${debouncedSearchQuery}`,
         );
         setCities(data);
       } catch (err) {
         console.log(err);
       }
     };
-    if (searchQuery) handleSearch();
-  }, [searchQuery]);
+    if (debouncedSearchQuery) handleSearch();
+  }, [debouncedSearchQuery]);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (cities) {
@@ -46,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     if (selectedCity) {
-      dispatch(setCity(`${selectedCity.lat},${selectedCity.lon}`));
+      dispatch(setCity(selectedCity));
       setSearchQuery('');
     }
   }, [selectedCity, dispatch]);
