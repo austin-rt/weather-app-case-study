@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { API } from '../lib/constants';
+import useLocation from './useLocation';
 import { setWeather } from '../store/features/WeatherSlice';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import useLocation from './useLocation';
 import { addAnimationString } from '../lib/helpers';
+import { API } from '../lib/constants';
 
-const useFetchWeather = () => {
+export default function useFetchWeather() {
   useLocation();
   const city = useAppSelector(({ CitySlice }) => CitySlice.city);
   const dispatch = useAppDispatch();
@@ -22,6 +22,4 @@ const useFetchWeather = () => {
     };
     fetchWeather();
   }, [city, dispatch]);
-};
-
-export default useFetchWeather;
+}
