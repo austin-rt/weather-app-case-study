@@ -1,3 +1,4 @@
+import { ANIMATIONS } from '../lib/constants';
 import Lottie from 'lottie-react';
 import CloudyNight from '../assets/lottie/CloudyNight.json';
 import Fog from '../assets/lottie/Fog.json';
