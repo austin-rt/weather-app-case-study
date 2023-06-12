@@ -43,7 +43,7 @@ export default function LottieWrapper() {
       {weather ? (
         <Lottie
           animationData={animationData(weather)}
-          className='w-3/5'
+          className='w-full'
           loop={true}
         />
       ) : (
