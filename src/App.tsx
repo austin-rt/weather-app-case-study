@@ -1,55 +1,18 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-import { API } from './lib/constants';
-import { useAppDispatch, useAppSelector } from './store/store';
+import { useAppSelector } from './store/store';
 import useFetchWeather from './hooks/useFetchWeather';
 import CurrentWeather from './components/CurrentWeather';
-import { setCity } from './store/features/CitySlice';
 import useDebounce from './hooks/useDebounce';
+import useFetchCity from './hooks/useFetchCity';
+import useInputState from './hooks/useInputState';
+import useSelectCity from './hooks/useSelectCity';
 
 export default function App() {
   useFetchWeather();
   const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
-  const dispatch = useAppDispatch();
-
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedCity, setSelectedCity] = useState<SearchQueryLocation>();
-  const [cities, setCities] = useState<SearchQueryLocation[]>();
-
+  const { searchQuery, handleInputChange } = useInputState();
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  useEffect(() => {
-    const handleSearch = async () => {
-      try {
-        const { data } = await axios.get(
-          `${API.BASE_URL}/${API.SEARCH}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${debouncedSearchQuery}`,
-        );
-        setCities(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    if (debouncedSearchQuery) handleSearch();
-  }, [debouncedSearchQuery]);
-
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (cities) {
-      const newCity = cities.find(city => city.id === Number(e.currentTarget.dataset.cityid));
-      if (newCity) setSelectedCity(newCity);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedCity) {
-      dispatch(setCity(selectedCity));
-      setSearchQuery('');
-    }
-  }, [selectedCity, dispatch]);
+  const { cities } = useFetchCity(debouncedSearchQuery);
+  const { handleCityClick } = useSelectCity(cities!);
 
   return (
     <main
@@ -66,14 +29,18 @@ export default function App() {
           placeholder='Search for a city'
           className='mr-4 rounded-xl border-2 border-slate-100 border-opacity-30 bg-transparent p-4 text-center transition-all duration-300 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-100 focus:ring-opacity-50 active:border-opacity-50 active:bg-slate-100 active:bg-opacity-10'
           value={searchQuery}
-          onChange={handleInputChange}
+          onChange={e => {
+            handleInputChange(e);
+          }}
         />
       </form>
       {searchQuery && (
         <div className='flex flex-col gap-2'>
           {cities?.map(city => (
             <button
-              onClick={handleClick}
+              onClick={() => {
+                handleCityClick(city.id);
+              }}
               key={city.id}
               data-cityid={city.id}
               className='rounded-xl border-2 border-slate-100 border-opacity-30 bg-transparent p-4 text-center transition-all duration-300 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-100 focus:ring-opacity-50 active:border-opacity-50 active:bg-slate-100 active:bg-opacity-10'
