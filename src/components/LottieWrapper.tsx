@@ -42,11 +42,11 @@ export default function LottieWrapper() {
   const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
 
   return (
-    <div className='flex w-5/6 justify-center'>
+    <div className='flex w-5/6 justify-center p-4'>
       {weather ? (
         <Lottie
           animationData={animationData(weather)}
-          className='w-full'
+          className='w-3/4'
           loop={true}
         />
       ) : (

@@ -57,7 +57,7 @@ export default function App() {
         weather?.current.is_day
           ? 'bg-gradient-to-br from-blue-600 to-indigo-600'
           : 'bg-gradient-to-br from-blue-900 to-indigo-900'
-      } flex h-[100vh] w-full flex-col items-center justify-center gap-4 p-10 text-slate-100`}
+      } flex min-h-[100vh] w-full flex-col items-center gap-4 p-10 text-slate-100`}
     >
       {weather && <CurrentWeather />}
       <form>
