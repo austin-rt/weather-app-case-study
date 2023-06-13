@@ -19,7 +19,7 @@ export default function Forecast({ className }: Props) {
           {forecast.forecastday.map((day: ForecastDayWithAnimationString) => (
             <article
               key={day.date}
-              className='flex w-5/12 flex-col items-center rounded-2xl bg-slate-50 bg-opacity-10 p-2 px-2 shadow-2xl sm:rounded-3xl sm:p-3 sm:px-6'
+              className='flex w-5/12 flex-col items-center rounded-2xl bg-slate-50 bg-opacity-10 px-4 py-2 shadow-2xl sm:rounded-3xl sm:px-6 sm:py-3'
             >
               <h2 className='text-center'>{renderDay(day.date)}</h2>
               <LottieWrapper
