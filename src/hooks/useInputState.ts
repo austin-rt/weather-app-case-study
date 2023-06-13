@@ -9,6 +9,11 @@ export default function useInputState() {
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearchQuery = useDebounce(searchQuery, 500) as string;
 
+  // move to slice for this to work
+  // const clearSearchQuery = () => {
+  //   setSearchQuery('');
+  // };
+
   useEffect(() => {
     dispatch(setDebouncedSearchQuery(debouncedSearchQuery));
   }, [debouncedSearchQuery, dispatch]);
@@ -17,5 +22,5 @@ export default function useInputState() {
     setSearchQuery(e.target.value);
   };
 
-  return { searchQuery, handleInputChange };
+  return { searchQuery, handleInputChange /* clearSearchQuery */ };
 }
