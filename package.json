@@ -1,5 +1,6 @@
 {
-  "name": "weather-app-case-study",
+  "name": "blue-skies-weather-app",
+  "homepage": "https://blue-skies-weather.netlify.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
