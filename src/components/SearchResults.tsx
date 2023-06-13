@@ -14,7 +14,7 @@ export default function SearchResults() {
   return (
     <>
       {debouncedSearchQuery && (
-        <section className='flex flex-wrap justify-center gap-2'>
+        <section className='flex flex-wrap justify-center gap-2 pt-2'>
           {cities &&
             cities
               .filter(

@@ -6,7 +6,11 @@ import { setForecast } from '../store/features/ForecastSlice';
 import { addAnimationStringToForecast } from '../lib/helpers';
 import LottieWrapper from './LottieWrapper';
 
-export default function Forecast() {
+type Props = {
+  className?: string;
+};
+
+export default function Forecast({ className }: Props) {
   const city = useAppSelector(({ CitySlice }) => CitySlice.city);
   const forecast = useAppSelector(({ ForecastSlice }) => ForecastSlice.forecast);
   const dispatch = useAppDispatch();
@@ -27,13 +31,13 @@ export default function Forecast() {
     }
   }, [dispatch, city]);
   return (
-    <>
+    <div className={className}>
       {forecast && (
-        <section className='flex w-full justify-center gap-5 p-6 sm:w-11/12 sm:justify-between'>
+        <section className='flex w-full justify-between gap-5 p-4'>
           {forecast.forecastday.map((day: ForecastDayWithAnimationString) => (
             <article
               key={day.date}
-              className='flex w-4/12 flex-col items-center gap-2 rounded-3xl bg-slate-50 bg-opacity-10 p-3 px-6 shadow-2xl sm:w-5/12 sm:p-3 sm:px-8'
+              className='flex w-5/12 flex-col items-center gap-2 rounded-3xl bg-slate-50 bg-opacity-10 p-3 px-6 shadow-2xl'
             >
               <h2 className='text-center'>
                 {new Date(day.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short' })}
@@ -50,6 +54,6 @@ export default function Forecast() {
           ))}
         </section>
       )}
-    </>
+    </div>
   );
 }
