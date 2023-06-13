@@ -17,41 +17,63 @@ import Sunny from '../assets/lottie/Sunny.json';
 import Thunder from '../assets/lottie/Thunder.json';
 import Windy from '../assets/lottie/Windy.json';
 import { useAppSelector } from '../store/store';
+import { LOTTIE_CHILD } from '../lib/constants';
 
 // input is WeatherWithAnimationString, output is imported JSON file
-const animationData = (weather: WeatherWithAnimationString): any => {
-  if (weather.current.condition.animationString === ANIMATIONS.CLOUDY_NIGHT) return CloudyNight;
-  if (weather.current.condition.animationString === ANIMATIONS.FOG) return Fog;
-  if (weather.current.condition.animationString === ANIMATIONS.MIST) return Mist;
-  if (weather.current.condition.animationString === ANIMATIONS.CLEAR_NIGHT) return Night;
-  if (weather.current.condition.animationString === ANIMATIONS.PARTLY_CLOUDY) return PartlyCloudy;
-  if (weather.current.condition.animationString === ANIMATIONS.PARTLY_SHOWER) return PartlyShower;
-  if (weather.current.condition.animationString === ANIMATIONS.RAIN) return Rain;
-  if (weather.current.condition.animationString === ANIMATIONS.RAINY_NIGHT) return RainyNight;
-  if (weather.current.condition.animationString === ANIMATIONS.SNOW) return Snow;
-  if (weather.current.condition.animationString === ANIMATIONS.SNOWY_NIGHT) return SnowyNight;
-  if (weather.current.condition.animationString === ANIMATIONS.SNOWY_SUN) return SnowySun;
-  if (weather.current.condition.animationString === ANIMATIONS.STORM) return Storm;
-  if (weather.current.condition.animationString === ANIMATIONS.STORM_SHOWERS) return StormShowers;
-  if (weather.current.condition.animationString === ANIMATIONS.SUNNY) return Sunny;
-  if (weather.current.condition.animationString === ANIMATIONS.THUNDER) return Thunder;
-  if (weather.current.condition.animationString === ANIMATIONS.WINDY) return Windy;
+const animationData = (condition: WeatherConditionWithAnimationString): any => {
+  if (condition.animationString === ANIMATIONS.CLOUDY_NIGHT) return CloudyNight;
+  if (condition.animationString === ANIMATIONS.FOG) return Fog;
+  if (condition.animationString === ANIMATIONS.MIST) return Mist;
+  if (condition.animationString === ANIMATIONS.CLEAR_NIGHT) return Night;
+  if (condition.animationString === ANIMATIONS.PARTLY_CLOUDY) return PartlyCloudy;
+  if (condition.animationString === ANIMATIONS.PARTLY_SHOWER) return PartlyShower;
+  if (condition.animationString === ANIMATIONS.RAIN) return Rain;
+  if (condition.animationString === ANIMATIONS.RAINY_NIGHT) return RainyNight;
+  if (condition.animationString === ANIMATIONS.SNOW) return Snow;
+  if (condition.animationString === ANIMATIONS.SNOWY_NIGHT) return SnowyNight;
+  if (condition.animationString === ANIMATIONS.SNOWY_SUN) return SnowySun;
+  if (condition.animationString === ANIMATIONS.STORM) return Storm;
+  if (condition.animationString === ANIMATIONS.STORM_SHOWERS) return StormShowers;
+  if (condition.animationString === ANIMATIONS.SUNNY) return Sunny;
+  if (condition.animationString === ANIMATIONS.THUNDER) return Thunder;
+  if (condition.animationString === ANIMATIONS.WINDY) return Windy;
 };
 
-export default function LottieWrapper() {
-  const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
+type Props = {
+  child: LOTTIE_CHILD;
+  day?: DayWithAnimationString;
+};
 
-  return (
-    <div className='flex w-5/6 justify-center p-4'>
-      {weather ? (
-        <Lottie
-          animationData={animationData(weather)}
-          className='w-3/4'
-          loop={true}
-        />
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
-  );
+export default function LottieWrapper({ child, day }: Props): JSX.Element {
+  const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
+  const forecast = useAppSelector(({ ForecastSlice }) => ForecastSlice.forecast);
+
+  if (child === LOTTIE_CHILD.CURRENT_WEATHER) {
+    return (
+      <div className='flex w-5/6 justify-center'>
+        {weather && (
+          <Lottie
+            animationData={animationData(weather.current.condition)}
+            className='w-5/6 sm:w-3/4'
+            loop={true}
+          />
+        )}
+      </div>
+    );
+  } else if (child === LOTTIE_CHILD.FORECAST) {
+    if (day) {
+      return (
+        <article className='flex w-full justify-evenly'>
+          {forecast && (
+            <Lottie
+              animationData={animationData(day.condition)}
+              className='w-full'
+              loop={true}
+            />
+          )}
+        </article>
+      );
+    }
+  }
+  return <div>Loading...</div>;
 }
