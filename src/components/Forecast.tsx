@@ -29,11 +29,11 @@ export default function Forecast() {
   return (
     <>
       {forecast && (
-        <section className='flex w-full justify-between gap-5'>
+        <section className='flex w-full justify-center gap-5 p-6 sm:w-11/12 sm:justify-between'>
           {forecast.forecastday.map((day: ForecastDayWithAnimationString) => (
-            <div
+            <article
               key={day.date}
-              className='flex flex-col items-center gap-3 rounded-3xl bg-slate-50 bg-opacity-10 p-5 px-12 shadow-2xl'
+              className='flex w-4/12 flex-col items-center gap-2 rounded-3xl bg-slate-50 bg-opacity-10 p-3 px-6 shadow-2xl sm:w-5/12 sm:p-3 sm:px-8'
             >
               <h2 className='text-center'>
                 {new Date(day.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short' })}
@@ -46,7 +46,7 @@ export default function Forecast() {
                 <p>H: {day.day.maxtemp_f.toFixed(0)}°F</p>
                 <p>L: {day.day.mintemp_f.toFixed(0)}°F</p>
               </div>
-            </div>
+            </article>
           ))}
         </section>
       )}

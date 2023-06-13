@@ -63,7 +63,7 @@ export default function LottieWrapper({ child, day }: Props): JSX.Element {
   } else if (child === LOTTIE_CHILD.FORECAST) {
     if (day) {
       return (
-        <article className='flex w-full justify-evenly'>
+        <div className='flex w-full justify-evenly'>
           {forecast && (
             <Lottie
               animationData={animationData(day.condition)}
@@ -71,7 +71,7 @@ export default function LottieWrapper({ child, day }: Props): JSX.Element {
               loop={true}
             />
           )}
-        </article>
+        </div>
       );
     }
   }
