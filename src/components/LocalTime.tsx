@@ -16,7 +16,7 @@ const LocalTime = () => {
       minute: '2-digit',
     });
 
-  return <span>{getLocalTime()}</span>;
+  return <span>{getLocalTime().toLowerCase()}</span>;
 };
 
 export default LocalTime;
