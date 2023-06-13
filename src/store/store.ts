@@ -3,12 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import CitySlice from './features/CitySlice';
 import WeatherSlice from './features/WeatherSlice';
+import ForecastSlice from './features/ForecastSlice';
 import DebouncedSearchQuerySlice from './features/DebouncedSearchQuerySlice';
 import SearchResultsSlice from './features/SearchResultsSlice';
 
 const reducers = combineReducers({
   CitySlice,
   WeatherSlice,
+  ForecastSlice,
   DebouncedSearchQuerySlice,
   SearchResultsSlice,
 });
