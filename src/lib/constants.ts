@@ -3,7 +3,7 @@ export enum API {
   CURRENT = 'current.json',
   SEARCH = 'search.json',
   FORECAST = 'forecast.json',
-  IP_FALLBACK = 'http://ip-api.com/json/?fields=61439',
+  IP_FALLBACK = 'https://ip-api.com/json/?fields=61439',
 }
 
 export const ANIMATIONS: Record<string, AnimationString> = {
