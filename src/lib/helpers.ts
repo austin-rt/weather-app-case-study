@@ -1,5 +1,21 @@
+import { ANIMATIONS } from '../lib/constants';
+import CloudyNight from '../assets/lottie/CloudyNight.json';
+import Fog from '../assets/lottie/Fog.json';
+import Mist from '../assets/lottie/Mist.json';
+import Night from '../assets/lottie/ClearNight.json';
+import PartlyCloudy from '../assets/lottie/PartlyCloudy.json';
+import PartlyShower from '../assets/lottie/PartlyShower.json';
+import Rain from '../assets/lottie/Rain.json';
+import RainyNight from '../assets/lottie/RainyNight.json';
+import Snow from '../assets/lottie/Snow.json';
+import SnowyNight from '../assets/lottie/SnowyNight.json';
+import SnowySun from '../assets/lottie/SnowySun.json';
+import Storm from '../assets/lottie/Storm.json';
+import StormShowers from '../assets/lottie/StormShowers.json';
+import Sunny from '../assets/lottie/Sunny.json';
+import Thunder from '../assets/lottie/Thunder.json';
+import Windy from '../assets/lottie/Windy.json';
 import { AnimationString } from '../../types/animations';
-import { ANIMATIONS } from './constants';
 
 export const generateCustomDate = (): CustomDate => {
   const dateObj = new Date();
@@ -8,6 +24,10 @@ export const generateCustomDate = (): CustomDate => {
     hour: dateObj.getHours(),
     localtime: dateObj.toLocaleTimeString([], { hour: 'numeric' }),
   };
+};
+
+export const renderDay = (date: string) => {
+  return new Date(date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short' });
 };
 
 export const addAnimationString = (data: Weather): WeatherWithAnimationString => {
@@ -143,4 +163,23 @@ export const addAnimationStringToForecast = (data: Forecast): ForecastWithAnimat
     },
   );
   return { forecastday: forecastWithAnimationString };
+};
+
+export const animationData = (condition: WeatherConditionWithAnimationString): unknown => {
+  if (condition.animationString === ANIMATIONS.CLOUDY_NIGHT) return CloudyNight;
+  if (condition.animationString === ANIMATIONS.FOG) return Fog;
+  if (condition.animationString === ANIMATIONS.MIST) return Mist;
+  if (condition.animationString === ANIMATIONS.CLEAR_NIGHT) return Night;
+  if (condition.animationString === ANIMATIONS.PARTLY_CLOUDY) return PartlyCloudy;
+  if (condition.animationString === ANIMATIONS.PARTLY_SHOWER) return PartlyShower;
+  if (condition.animationString === ANIMATIONS.RAIN) return Rain;
+  if (condition.animationString === ANIMATIONS.RAINY_NIGHT) return RainyNight;
+  if (condition.animationString === ANIMATIONS.SNOW) return Snow;
+  if (condition.animationString === ANIMATIONS.SNOWY_NIGHT) return SnowyNight;
+  if (condition.animationString === ANIMATIONS.SNOWY_SUN) return SnowySun;
+  if (condition.animationString === ANIMATIONS.STORM) return Storm;
+  if (condition.animationString === ANIMATIONS.STORM_SHOWERS) return StormShowers;
+  if (condition.animationString === ANIMATIONS.SUNNY) return Sunny;
+  if (condition.animationString === ANIMATIONS.THUNDER) return Thunder;
+  if (condition.animationString === ANIMATIONS.WINDY) return Windy;
 };
