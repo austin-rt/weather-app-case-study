@@ -12,7 +12,7 @@ const LocalTime = () => {
 
   const getLocalTime = () =>
     date.toLocaleTimeString('us-US', {
-      hour: '2-digit',
+      hour: 'numeric',
       minute: '2-digit',
     });
 
