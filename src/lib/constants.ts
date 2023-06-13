@@ -2,6 +2,7 @@ export enum API {
   BASE_URL = 'http://api.weatherapi.com/v1',
   CURRENT = 'current.json',
   SEARCH = 'search.json',
+  FORECAST = 'forecast.json',
 }
 
 export const enum ANIMATIONS {
@@ -22,4 +23,9 @@ export const enum ANIMATIONS {
   THUNDER = 'thunder',
   WINDY = 'windy',
   LOADING = 'loading',
+}
+
+export const enum LOTTIE_CHILD {
+  CURRENT_WEATHER = 'currentWeather',
+  FORECAST = 'forecast',
 }
