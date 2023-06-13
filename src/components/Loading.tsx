@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import ClearNight from '../assets/lottie/ClearNight.json';
+import LoadingAnimation from '../assets/lottie/LoadingAnimation.json';
 
 type Props = {
   className?: string;
@@ -8,8 +8,8 @@ type Props = {
 export default function Loading({ className }: Props) {
   return (
     <div className={`${className}`}>
-      <div className='w-64 rounded-3xl bg-slate-50 bg-opacity-10 p-1 px-2 shadow-2xl'>
-        <Lottie animationData={ClearNight} />
+      <div className='w-72 rounded-3xl bg-slate-50 bg-opacity-5 shadow-2xl'>
+        <Lottie animationData={LoadingAnimation} />
       </div>
     </div>
   );
