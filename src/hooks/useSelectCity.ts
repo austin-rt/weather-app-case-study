@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { setCity } from '../store/features/CitySlice';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/store';
 
-export default function useSelectCity(cities: SearchQueryLocation[]) {
+export default function useSelectCity() {
+  const cities = useAppSelector(({ SearchResultsSlice }) => SearchResultsSlice.cities);
   const dispatch = useAppDispatch();
 
   const handleCityClick = useCallback(
