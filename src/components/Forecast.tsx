@@ -15,11 +15,11 @@ export default function Forecast({ className }: Props) {
   return (
     <div className={className}>
       {forecast && (
-        <section className='flex w-full justify-between gap-5 p-4'>
+        <section className='flex w-full justify-evenly gap-2 p-4 sm:justify-between sm:gap-5'>
           {forecast.forecastday.map((day: ForecastDayWithAnimationString) => (
             <article
               key={day.date}
-              className='flex w-5/12 flex-col items-center gap-2 rounded-3xl bg-slate-50 bg-opacity-10 p-3 px-6 shadow-2xl'
+              className='flex w-5/12 flex-col items-center rounded-2xl bg-slate-50 bg-opacity-10 p-2 px-2 shadow-2xl sm:rounded-3xl sm:p-3 sm:px-6'
             >
               <h2 className='text-center'>{renderDay(day.date)}</h2>
               <LottieWrapper
@@ -27,8 +27,8 @@ export default function Forecast({ className }: Props) {
                 day={day.day}
               />
               <div className='flex w-full justify-between text-sm font-extralight'>
-                <p>H: {day.day.maxtemp_f.toFixed(0)}°F</p>
-                <p>L: {day.day.mintemp_f.toFixed(0)}°F</p>
+                <p>{day.day.mintemp_f.toFixed(0)}°F</p>
+                <p>{day.day.maxtemp_f.toFixed(0)}°F</p>
               </div>
             </article>
           ))}

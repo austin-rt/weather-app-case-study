@@ -11,20 +11,26 @@ export default function App() {
   const weather = useAppSelector(({ WeatherSlice }) => WeatherSlice.weather);
   const forecast = useAppSelector(({ ForecastSlice }) => ForecastSlice.forecast);
 
-  return !weather && !forecast ? (
-    <Loading className='flex min-h-[100vh] min-w-[100vw] items-center justify-center' />
-  ) : (
-    <main
+  return (
+    <div
       className={`${
         weather?.current.is_day
           ? 'bg-gradient-to-br from-cyan-400 to-indigo-700'
           : 'bg-gradient-to-br from-cyan-700 to-indigo-900'
-      } flex min-h-[100vh] w-full flex-col items-center gap-3 px-2 py-6 text-sky-100 sm:p-10 sm:pt-6`}
+      } flex min-h-[100vh] min-w-[100vw] flex-col items-center justify-center gap-5 text-sky-100`}
     >
-      <CurrentWeather />
-      <Forecast className='flex max-w-2xl justify-center' />
+      {!weather && !forecast ? (
+        <Loading />
+      ) : (
+        <main
+          className={`flex w-full flex-col items-center gap-1 p-2 pb-0 text-sky-100 sm:gap-3 sm:p-10 sm:pt-6`}
+        >
+          <CurrentWeather />
+          <Forecast className='flex max-w-2xl justify-center' />
+        </main>
+      )}
       <SearchInput />
       <SearchResults />
-    </main>
+    </div>
   );
 }
