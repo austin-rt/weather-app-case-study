@@ -1,8 +1,7 @@
-import { ANIMATIONS } from '../lib/constants';
 import CloudyNight from '../assets/lottie/CloudyNight.json';
 import Fog from '../assets/lottie/Fog.json';
 import Mist from '../assets/lottie/Mist.json';
-import Night from '../assets/lottie/ClearNight.json';
+import ClearNight from '../assets/lottie/ClearNight.json';
 import PartlyCloudy from '../assets/lottie/PartlyCloudy.json';
 import PartlyShower from '../assets/lottie/PartlyShower.json';
 import Rain from '../assets/lottie/Rain.json';
@@ -15,7 +14,7 @@ import StormShowers from '../assets/lottie/StormShowers.json';
 import Sunny from '../assets/lottie/Sunny.json';
 import Thunder from '../assets/lottie/Thunder.json';
 import Windy from '../assets/lottie/Windy.json';
-import { AnimationString } from '../../types/animations';
+import { ANIMATIONS } from '../lib/constants';
 
 export const generateCustomDate = (): CustomDate => {
   const dateObj = new Date();
@@ -169,7 +168,7 @@ export const animationData = (condition: WeatherConditionWithAnimationString): u
   if (condition.animationString === ANIMATIONS.CLOUDY_NIGHT) return CloudyNight;
   if (condition.animationString === ANIMATIONS.FOG) return Fog;
   if (condition.animationString === ANIMATIONS.MIST) return Mist;
-  if (condition.animationString === ANIMATIONS.CLEAR_NIGHT) return Night;
+  if (condition.animationString === ANIMATIONS.CLEAR_NIGHT) return ClearNight;
   if (condition.animationString === ANIMATIONS.PARTLY_CLOUDY) return PartlyCloudy;
   if (condition.animationString === ANIMATIONS.PARTLY_SHOWER) return PartlyShower;
   if (condition.animationString === ANIMATIONS.RAIN) return Rain;
