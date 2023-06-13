@@ -11,7 +11,7 @@ weather conditions.
 You can try out the Blue Skies Weather App in its
 [live deployement](https://blue-skies-weather.netlify.app) or on CodeSandbox:
 
-[![Launch CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/blue-skies-weather-app-demo-abcdef123)
+[![Launch CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/github/austin-rt/weather-app-case-study/codesandbox)
 
 ## Features
 
