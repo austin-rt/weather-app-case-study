@@ -29,6 +29,9 @@ You can try out the Blue Skies Weather App in its
   data fetching.
 - Mobile optimization is not perfect on all devices. I ran out of time to thoroughly adjust for each
   device but didn't want to alter the code after the deadline.
+- Though it's not documented, the API only allows a three day forecast for the free tier, inclusive
+  of the current day. So instead of filtering out the current day and only showing a two day
+  forecast, I left the current day in as well.
 
 ## Technologies Used
 
