@@ -27,6 +27,8 @@ You can try out the Blue Skies Weather App in its
   solved by leveraging React's suspense component, but I didn't have time to rewrite the API call to
   use SWR. The most likely solution would be convert to Nextjs and take advantage of the built in
   data fetching.
+- Mobile optimization is not perfect on all devices. I ran out of time to thoroughly adjust for each
+  device but didn't want to alter the code after the deadline.
 
 ## Technologies Used
 
