@@ -1,10 +1,11 @@
 # [Blue Skies Weather App](https://blue-skies-weather.netlify.app/)
 
-![Blue Skies Weather App Screenshot](/assets/pngs/screenshot.png) Blue Skies Weather App is a simple
-and intuitive web application built with TypeScript, React, and Redux. It provides real-time weather
-information for various locations, displaying the current weather, temperature, location, time, and
-weather conditions. Additionally, it offers a three-day forecast with high and low temperatures and
-weather conditions.
+![Blue Skies Weather App Screenshot](/assets/pngs/screenshot.png)
+
+Blue Skies is a simple and intuitive web application built with TypeScript, React, and Redux. It
+provides real-time weather information for the user's current locations, displaying the current
+weather, temperature, location, time, and weather conditions. Additionally, it offers a three-day
+forecast with high and low temperatures and weather conditions.
 
 ## Demo
 
@@ -22,16 +23,19 @@ You can try out the Blue Skies Weather App in its
 
 ## Known Issues
 
-- There is an obvious Layout shift on first load if the user has previously granted permission. The
-  conditional rendering of the Loading screen blips before the API call is finished. This could be
-  solved by leveraging React's suspense component, but I didn't have time to rewrite the API call to
-  use SWR. The most likely solution would be convert to Nextjs and take advantage of the built in
-  data fetching.
-- Mobile optimization is not perfect on all devices. I ran out of time to thoroughly adjust for each
-  device but didn't want to alter the code after the deadline.
-- Though it's not documented, the API only allows a three day forecast for the free tier, inclusive
-  of the current day. So instead of filtering out the current day and only showing a two day
-  forecast, I left the current day in as well.
+- Layout shift on first load if permission was previously granted. Loading screen flickers before
+  API call finishes. Solution: Consider using SWR fetching with React's Suspense component or
+  converting to Next.js for prebuilt data fetch flow.
+- Imperfect mobile optimization due to time constraints. No further code changes made after
+  deadline.
+- Though it's not documented, the API's free teir only allows a three day forecast, inclusive of the
+  current day. So instead of filtering out the current day and only showing a two day forecast, I
+  left the current day in.
+- The data is not recached while the application is running. We could make a fresh API call after a
+  certain period of time (2-3 sec for this API) or if performance were an issue, use the
+  `watchPosition` method from the geolocation API to only make the call when the position changes.
+  However if the user opts to block location services and the app fallsback to the IP address
+  method, the user would need to make much larger moves to trigger a location change.
 
 ## Technologies Used
 
