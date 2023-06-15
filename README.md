@@ -36,6 +36,8 @@ You can try out the Blue Skies Weather App in its
   `watchPosition` method from the geolocation API to only make the call when the position changes.
   However if the user opts to block location services and the app fallsback to the IP address
   method, the user would need to make much larger moves to trigger a location change.
+- An accessability pass still needs to be done. We would need to thoroughly optomize with titles,
+  aria-labels, roles, and other accessability best practices to ensure the app is fully accessable.
 
 ## Technologies Used
 
