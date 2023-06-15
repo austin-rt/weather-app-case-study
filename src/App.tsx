@@ -17,7 +17,7 @@ export default function App() {
         weather?.current.is_day
           ? 'bg-gradient-to-br from-cyan-400 to-indigo-700'
           : 'bg-gradient-to-br from-cyan-700 to-indigo-900'
-      } flex min-h-[100vh] min-w-[100vw] flex-col items-center py-5 text-sky-100`}
+      } flex min-h-[100vh] min-w-[100vw] flex-col items-center px-3 py-5 text-sky-100`}
     >
       {!weather && !forecast ? (
         <Loading className='flex w-1/2 flex-col items-center py-8' />
