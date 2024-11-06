@@ -6,7 +6,7 @@ const Title = () => {
   return (
     <h3
       className={`bg-gradient-to-r bg-clip-text font-title text-2xl font-medium text-transparent sm:text-6xl ${
-        weather?.current.is_day ? 'from-yellow-500 to-blue-200' : 'to-blue-400from-yellow-400 '
+        weather?.current.is_day ? 'from-yellow-500 to-blue-200' : 'from-yellow-400 to-blue-400'
       }`}
     >
       Blue Skies

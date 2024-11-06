@@ -22,7 +22,7 @@ export default function App() {
     >
       <Title />
       {!weather && !forecast ? (
-        <Loading className='flex w-1/2 flex-col items-center py-8' />
+        <Loading />
       ) : (
         <main
           className={`flex w-full flex-col items-center gap-1 p-2 py-0 text-sky-100 sm:gap-3 sm:px-10 sm:pb-3 sm:pt-6`}
