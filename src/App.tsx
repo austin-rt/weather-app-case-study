@@ -5,6 +5,7 @@ import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 import Forecast from './components/Forecast';
 import Loading from './components/Loading';
+import Title from './components/Title';
 
 export default function App() {
   useFetchWeather();
@@ -19,6 +20,7 @@ export default function App() {
           : 'bg-gradient-to-br from-cyan-700 to-indigo-900'
       } flex min-h-[100vh] min-w-[100vw] flex-col items-center px-3 py-5 text-sky-100`}
     >
+      <Title />
       {!weather && !forecast ? (
         <Loading className='flex w-1/2 flex-col items-center py-8' />
       ) : (
